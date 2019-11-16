@@ -1,0 +1,58 @@
+﻿@model ICollection<CRUDOperation.Models.Product>
+
+    @*<div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="row">
+            <div>
+                <img src="~/img/ILLIYEEN-Logo2.png" style="width:80px; height:80px; margin-top:10px; margin-left:500px" />
+            </div>
+        </div>
+    </div>*@
+<br />
+<br />
+    <div class="container">
+        <div class="row">
+            @foreach (var product in Model)
+            {
+                <div>
+                    <div class="col-md-3">
+                        <div class="card shadow" style="width:400px; margin:5px; box-shadow:inset">
+                            <td style="width:60px;">
+                                @{
+                                    if (product.ImagePath != null)
+                                    {
+                                        String img64 = Convert.ToBase64String(product.ImageUrl);
+                                        String img64url = string.Format("data:Image/" + product.ImageUrl + ";base64,{0}", img64);
+
+                                        <img class="card-img-top" src="@img64url" alt="Card image" height="150" width="200" />
+
+                                    }
+                                    else
+                                    {
+                                        <img class="card-img-top" src="~/img/default.jpg" alt="Card image" height="150" width="200" />
+                                    }
+
+                                }
+
+                            </td>
+
+                            <div class="card-img-overlay">
+                                <h4 class="card-title"><a>Model:</a>@product.Name</h4>
+                                <p class="card-text">
+                                    Price : @product.Price <br>
+                                    Expiry Date : @product.ExpireDate<br>
+                                    Category Name : @product.Category.Name
+                                </p>
+                                <a asp-controller="cart" asp-action="buy" asp-route-id="@product.Id" class="btn btn-primary">Add To Cart</a>
+                                <a asp-action="Details" asp-route-id="@product.Id" class="btn btn-primary" style="width:100px">Details</a>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+
+
+   
