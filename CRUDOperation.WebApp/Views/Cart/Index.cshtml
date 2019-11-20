@@ -31,17 +31,17 @@
                 <td>@product.Quantity</td>
                 <td>@(product.product.Price * product.Quantity)</td>
                 <td align="center">
-                    <a asp-controller="cart" asp-action="Remove" asp-route-id="@product.product.Id">Remove From Cart</a>
+                    <a asp-controller="cart" asp-action="Remove" asp-route-id="@product.product.Id">Remove Item</a>
                 </td>
             </tr>
         }
-        <tr>
-            <td colspan="5" align="right">Total</td>
-            <td>@ViewBag.Total</td>
-        </tr>
+    <tr>
+        <td colspan="6" align="right">Total</td>
+        <td>@ViewBag.Total</td>
+    </tr>
     </tbody>
 </table>
 <br />
 <br />
 <a class="btn btn-success" asp-controller="Product" asp-action="ProductListIndex">Continue Shopping</a>.
-<a class="btn btn-primary" asp-controller="Product" asp-action="ProductListIndex">CheckOut</a>.
+<a class="btn btn-primary" asp-controller="Product" asp-action="ProductListIndex">Place Order</a>.

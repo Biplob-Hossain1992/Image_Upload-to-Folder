@@ -14,19 +14,18 @@ namespace CRUDOperation.WebApp
 {
     public class Startup
     {
-        // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
+        
         public void ConfigureServices(IServiceCollection services)
         {
             /* Using for Regisration user...login and logout */
 
             services.AddDbContext<CRUDOperationDbContext>(options =>
             options.UseSqlServer("Server=(local);Database=CRUDOperation_Authentication; Integrated Security=true"));
-            services.AddDefaultIdentity<IdentityUser>()
+            services.AddIdentity<IdentityUser,IdentityRole>()
                 .AddDefaultUI()
                 .AddEntityFrameworkStores<CRUDOperationDbContext>();
             /*--------End--------*/
-            //services.ConfigureServicesForCRUDOperation(); //bhaiya using
+
 
             ServicesConfigurations.ConfigureServices(services);
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
@@ -61,12 +60,13 @@ namespace CRUDOperation.WebApp
                 options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
 
                 options.LoginPath = "/Identity/Account/Login";
+                options.LogoutPath = "/Identity/Account/Logout";
                 options.AccessDeniedPath = "/Identity/Account/AccessDenied";
                 options.SlidingExpiration = true;
             });
 
             /*-------End-----------*/
-            //services.AddMvc();
+
 
             /*-------add Policy for browser accept all CORS(Cross Origin Resource Sharing)-----------*/
             services.AddCors(options =>
@@ -107,13 +107,6 @@ namespace CRUDOperation.WebApp
             app.UseMvcWithDefaultRoute();
 
             app.UseCors("AllowAll"); //add Policy for browser accept all CORS(Cross Origin Resource Sharing)
-
-            //app.UseMvc(routes =>
-            //{
-            //    routes.MapRoute(
-            //        name: "Default",
-            //        template: "{controller=Customer}/{action=Create}/{id?}");
-            //});
 
 
             app.UseMvc(routes =>

@@ -57,7 +57,7 @@ namespace CRUDOperation.WebApp.Controllers
 
             return View(model);
         }
-        [Authorize]
+        //[Authorize]
         public IActionResult ProductListIndex()
         {
             var products = _productManager.GetAll();
